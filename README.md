@@ -42,6 +42,6 @@ https://istethoscope.peterjbentley.com/heartchallenge/index.html
 
 ## Team
 
-Sankhya Sivakumar
-Vaibhav Gupta
-Susheel Srikanth
+* Sankhya Sivakumar
+* Vaibhav Gupta
+* Susheel Srikanth
