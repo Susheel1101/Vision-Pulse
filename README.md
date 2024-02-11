@@ -15,6 +15,10 @@ The heart and the eye represent our connection to the world. Disruptions to thei
 
 Accessible through a simple tap, VisionPulse empowers users from remote villages to urban centers to take a proactive step in health monitoring.
 
+## App Installation 
+To install VisionPulse on your Android device, download the VisionPulse.apk file and follow the installation instructions provided. Make sure to enable 'Unknown Sources' in your device's security settings to allow app installation from sources other than the Google Play Store.
+
+
 ## The Future of VisionPulse
 
 VisionPulse is just beginning. We envision this application becoming a household staple, an everyday item that's as familiar as a thermometer. Our commitment extends beyond the current offerings, with a roadmap that includes:
