@@ -5,54 +5,60 @@
     android:layout_height="match_parent"
     android:padding="16dp"
     android:gravity="center"
-    android:background="#c8ecea">
+    android:background="#ccced0">
 
     <!-- Logo Placeholder (Optional: Replace with ImageView if needed) -->
     <ImageView
         android:id="@+id/logoImageView"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="244dp"
+        android:layout_height="212dp"
         android:layout_gravity="center"
-        android:src="@drawable/mainlogo" />
+        android:layout_marginBottom="32dp"
+        android:src="@drawable/visionpulse" />
 
     <!-- Center-aligned Welcome Message -->
-
-    <!-- Button for Heart Diagnostic -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
-        android:fontFamily="@font/heartbeat"
-        android:gravity="center"
         android:text="@string/welcome_text"
+        android:textSize="28sp"
         android:textColor="@color/black"
-        android:textSize="50sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginBottom="32dp" />
 
-    <ImageButton
+    <!-- Button for Heart Diagnostic -->
+    <Button
         android:id="@+id/buttonHeart"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@drawable/mainhearticon"
-        android:background="?attr/selectableItemBackground"
-        android:scaleType="centerCrop"/>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/heart_button"
+        android:backgroundTint="@color/button_color"
+        android:layout_marginBottom="16dp" />
 
-    <ImageButton
+    <!-- Button for Cataract Diagnostic -->
+    <Button
         android:id="@+id/buttonCataract"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@drawable/maincataracticon"
-        android:background="?attr/selectableItemBackground"
-        android:scaleType="centerCrop"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="20dp"/>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/cataract_button"
+        android:backgroundTint="@color/button_color"
+        android:layout_marginBottom="32dp" />
 
+    <!-- Disclaimer Text -->
+
+    <!-- Bottom Spacer to push the layout up -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="130dp"
         android:gravity="center"
         android:padding="8dp"
         android:text="@string/disclaimer_message"
-        android:textSize="16sp"/>
+        android:textSize="16sp" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
 
 </LinearLayout>

@@ -1,7 +1,6 @@
 package com.example.irisbeats;
 
 import android.app.Activity;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -9,23 +8,19 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.content.Intent;
 
-import androidx.core.content.ContextCompat;
-
 public class SplashActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splashscreen);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.splash_background));
-        }
+
         // Find the view that will show the circle
-//        View circleView = findViewById(R.id.circle_view);
+        View circleView = findViewById(R.id.circle_view);
 
         // Load the animation from the anim resource
-//        Animation anim = AnimationUtils.loadAnimation(this, R.anim.circle_expand);
-//        circleView.startAnimation(anim);
+        Animation anim = AnimationUtils.loadAnimation(this, R.anim.circle_expand);
+        circleView.startAnimation(anim);
 
         // New Handler to start the next activity (e.g., MainActivity)
         // and close this SplashActivity after some seconds.

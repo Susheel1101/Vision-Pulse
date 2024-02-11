@@ -1,8 +1,8 @@
 <resources>
-    <string name="welcome_text">In a Heartbeat or a Blink Check Your Health</string>
+    <string name="welcome_text">In a Heartbeat or a Blink: Check Your Health</string>
     <string name="heart_button">Heart Diagnosis</string>
     <string name="cataract_button">Cataract Diagnosis</string>
-    <string name="disclaimer_message">Disclaimer: Vision Pulse is designed for preliminary health screenings only. The results are not definitive diagnoses and should be discussed with a healthcare professional.</string>
+    <string name="disclaimer_message">Disclaimer: Vision Pulse is designed for preliminary health screening. The results are not definitive diagnoses and should be discussed with a healthcare professional. Accuracy is not guaranteed.</string>
     <string name="vision_text">Vision Logo</string>
     <string name="record">Start Recording</string>
     <string name="upload">Upload Audio</string>

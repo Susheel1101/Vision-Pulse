@@ -3,30 +3,46 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    android:background="#c8ecea">
+    android:background="#ccced0">
 
-    <TextView
-        android:id="@+id/heartscreenheadlinetext"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Listen to your heart."
-        android:textSize="50sp"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:layout_marginBottom="50dp"
-        android:fontFamily="@font/heartbeat"/>
+    <!-- Back Button -->
+    <ImageButton
+        android:id="@+id/heartscreenbackbutton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="5dp"
+        android:src="@drawable/backbutton"
+        android:scaleType="centerInside"
+        android:background="?android:attr/selectableItemBackground" />
+
+    <!-- App Logo ImageView -->
+    <ImageView
+        android:id="@+id/imageViewAppLogo"
+        android:layout_width="199dp"
+        android:layout_height="170dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/visionpulse"
+        />
 
     <!-- Black background box that includes the animated GIF ImageView -->
-    <ImageView
-        android:id="@+id/gif_image"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:layout_gravity="center"
-        android:layout_below="@+id/heartscreenheadlinetext"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:scaleType="centerCrop" />
+    <FrameLayout
+        android:id="@+id/animatedGifContainer"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@android:color/black"
+        android:layout_below="@id/imageViewAppLogo">
+
+        <ImageView
+            android:id="@+id/imageViewAnimatedGif"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:scaleType="centerInside"
+            android:src="@drawable/heartbeat" />
+    </FrameLayout>
 
     <!-- Button panel -->
     <LinearLayout
@@ -34,58 +50,72 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_below="@id/gif_image"
+        android:layout_below="@id/animatedGifContainer"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="5dp"
         android:gravity="center">
 
-        <ImageButton
+        <Button
             android:id="@+id/heartscreemrecordbutton"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/heartrecordericon"
-            android:background="?attr/selectableItemBackground"
-            android:scaleType="centerCrop"
-            android:layout_marginEnd="20dp"/>
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/button_color"
+            android:text="@string/record"
+            android:layout_marginEnd="8dp"
+            />
 
-        <ImageButton
+        <Button
             android:id="@+id/heartscreenuploadbutton"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/heartuploadicon"
-            android:background="?attr/selectableItemBackground"
-            android:scaleType="centerCrop"
-            android:layout_marginEnd="20dp"/>
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/button_color"
+            android:text="@string/upload"
+            android:layout_marginStart="8dp"/>
 
-        <ImageButton
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/buttonPanel2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/buttonPanel1"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:gravity="center">
+
+        <Button
             android:id="@+id/heartscreenlistenbutton"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/heartlistenicon"
-            android:background="?attr/selectableItemBackground"
-            android:scaleType="centerCrop"
-            android:layout_marginEnd="20dp"/>
-        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/button_color"
+            android:text="@string/listen"
+            android:layout_marginEnd="8dp"
+            />
+
+        <Button
             android:id="@+id/heartscreenresetbutton"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/heartreseticon"
-            android:background="?attr/selectableItemBackground"
-            android:scaleType="centerCrop" />
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/button_color"
+            android:text="@string/reset"
+            android:layout_marginStart="8dp"/>
+
     </LinearLayout>
 
     <!-- Submit button -->
-    <ImageButton
+    <Button
         android:id="@+id/heartscreensubmitbutton"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:src="@drawable/cataractsubmiticon"
-        android:background="?attr/selectableItemBackground"
-        android:scaleType="centerCrop"
-        android:layout_below="@id/buttonPanel1"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"/>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/submit"
+        android:layout_below="@id/buttonPanel2"
+        android:layout_marginTop="5dp"
+        android:backgroundTint="@color/button_color"/>
 
     <!-- Result Text View -->
 
@@ -103,18 +133,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:textSize="25sp"
         android:layout_below="@id/textViewResult"
-        android:layout_marginTop="16dp"
-        android:textColor="@color/white" />
+        android:layout_marginTop="16dp" />
 
     <TextView
         android:id="@+id/heartscreenconfidencescore"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:textSize="25sp"
-        android:textColor="@color/white"
         android:layout_below="@id/heartscreenheartrate"
         android:layout_marginTop="16dp" />
     <TextView
@@ -122,18 +148,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:textSize="25sp"
-        android:textColor="@color/white"
         android:layout_below="@id/heartscreenconfidencescore"
         android:layout_marginTop="16dp" />
-
-    <ProgressBar
-        android:id="@+id/loadingIndicator"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/textViewResult"
-        android:layout_marginTop="30dp"
-        android:layout_centerInParent="true"
-        android:layout_centerVertical="true"
-        android:visibility="invisible" />
 </RelativeLayout>

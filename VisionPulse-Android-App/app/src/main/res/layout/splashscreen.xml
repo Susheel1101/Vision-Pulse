@@ -5,11 +5,11 @@
     android:layout_height="match_parent">
 
     <!-- Circle View at the bottom -->
-<!--    <View-->
-<!--        android:id="@+id/circle_view"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:background="@drawable/circle_shape" />-->
+    <View
+        android:id="@+id/circle_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/circle_shape" />
 
     <!-- Your ImageView -->
     <ImageView
@@ -17,7 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:src="@drawable/mainlogo" />
+        android:src="@drawable/visionpulse" />
 
     <!-- Any other views/components -->
 

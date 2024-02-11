@@ -56,5 +56,5 @@ dependencies {
     implementation("com.google.cloud:google-cloud-storage:2.0.0")
     implementation("androidx.multidex:multidex:2.0.1")
     implementation("com.google.android.gms:play-services-auth:19.0.0")
-    implementation("androidx.viewpager2:viewpager2:1.0.0")
+
 }

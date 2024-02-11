@@ -8,14 +8,12 @@ import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -27,10 +25,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.RequestOptions;
 import com.yalantis.ucrop.UCrop;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
@@ -50,36 +44,30 @@ import androidx.appcompat.app.AppCompatDelegate;
 
 public class CataractScreen extends AppCompatActivity {
 
-    private ImageButton uploadButton;
-    private ImageButton submitButton;
+    private Button uploadButton;
+    private Button submitButton;
     private ImageView imageView;
     private ProgressBar loadingIndicator;
     private TextView confidenceScoreTextView;
     private TextView resultTextView;
-    private ImageButton resetButton; // Declare the reset button
+    private Button resetButton; // Declare the reset button
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int CAMERA_PERMISSION_REQUEST = 1001; // You can use any unique number here
     private static final int REQUEST_IMAGE_PICK = 2;
     private static final int UCROP_REQUEST_CODE = 3;
     private String userImageFileName = "";
-    private ImageView gifImageView;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.cataractscreen);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.cataract_screen_background));
-        }
-        gifImageView = findViewById(R.id.cataractgifimage);
-        Glide.with(this)
-                .asGif()
-                .load(R.drawable.eyes) // Replace 'your_gif' with the GIF resource name
-                .apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE)) // Skip disk cache for the splash gif
-                .into(gifImageView);
+        // For Java
+//        RelativeLayout layout = findViewById(R.id.main_layout);
+//        layout.setAlpha(0.5f); // Adjust this value as needed, from 0.0 to 1.0
 
+
+//        appName = findViewById(R.id.appName);
         uploadButton = findViewById(R.id.uploadButton);
         submitButton = findViewById(R.id.submitButton);
         imageView = findViewById(R.id.imageView);
@@ -88,7 +76,8 @@ public class CataractScreen extends AppCompatActivity {
 
         loadingIndicator = findViewById(R.id.loadingIndicator);
         resetButton = findViewById(R.id.resetButton);
-
+        resetButton.setEnabled(false);
+        submitButton.setEnabled(false);
 
         // Assign a click listener to the uploadButton
         uploadButton.setOnClickListener(new View.OnClickListener() {
@@ -114,6 +103,7 @@ public class CataractScreen extends AppCompatActivity {
 
                     // Send the image to a Cloud Function or a server for processing
                     sendHttpRequestToFunction(imageBitmap);
+                    resetButton.setEnabled(false);
                     submitButton.setEnabled(false);
                     uploadButton.setEnabled(false);
                 } else {
@@ -144,6 +134,8 @@ public class CataractScreen extends AppCompatActivity {
         resultTextView.setText("");
         // Reset any other UI elements or internal state as needed
         loadingIndicator.setVisibility(View.GONE);
+        uploadButton.setEnabled(true);
+        resetButton.setEnabled(false);
     }
 
     private void handleUserFeedback(String feedback) {
@@ -178,12 +170,16 @@ public class CataractScreen extends AppCompatActivity {
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        submitButton.setEnabled(true);
+        resetButton.setEnabled(true);
     }
 
     private void dispatchPickImageIntent() {
         Intent pickImageIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         pickImageIntent.setType("image/*");
         startActivityForResult(pickImageIntent, REQUEST_IMAGE_PICK);
+        submitButton.setEnabled(true);
+        resetButton.setEnabled(true);
     }
 
     @Override
@@ -280,18 +276,18 @@ public class CataractScreen extends AppCompatActivity {
                     String formattedConfidence = String.format("%.2f%%", confidenceScore * 100);
 
                     // Set text color based on confidence score
-//                    if (confidenceScore > 0.8) {
-//                        confidenceScoreTextView.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
-//                    } else {
-//                        confidenceScoreTextView.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
-//                    }
-//
-//                    // Set text color based on result string
-//                    if ("Cataract Present".equals(result)) {
-//                        resultTextView.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
-//                    } else {
-//                        resultTextView.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
-//                    }
+                    if (confidenceScore > 0.8) {
+                        confidenceScoreTextView.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
+                    } else {
+                        confidenceScoreTextView.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
+                    }
+
+                    // Set text color based on result string
+                    if ("Cataract Present".equals(result)) {
+                        resultTextView.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
+                    } else {
+                        resultTextView.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
+                    }
 
                     // Update TextViews with the values
                     confidenceScoreTextView.setText("Confidence Score: " + formattedConfidence);

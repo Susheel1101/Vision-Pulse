@@ -4,7 +4,4 @@
     <color name="black">#000000</color>
     <color name="button_color">#001118</color>
     <color name="splash_background">#000000</color>
-    <color name = "cataract_screen_background">#5cd1e3</color>
-    <color name = "heart_screen_background">#262626</color>
-    <color name = "main_screen_color">#ccced0</color>
 </resources>

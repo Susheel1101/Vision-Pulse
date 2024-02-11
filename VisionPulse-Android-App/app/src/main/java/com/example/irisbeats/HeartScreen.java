@@ -7,25 +7,25 @@ import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.ScaleAnimation;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.RequestOptions;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -50,36 +50,27 @@ public class HeartScreen extends AppCompatActivity {
     // Requesting permission to RECORD_AUDIO
     private boolean permissionToRecordAccepted = false;
     private String [] permissions = {android.Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE};
-    private ImageButton heartscreenrecordbutton;
+    private Button heartscreenrecordbutton;
     private TextView heartscreenheartrate;
     private TextView heartscreenconfidencescore;
     private TextView heartscreenresult;
-    private ProgressBar loadingIndicator;
-    private ImageButton heartscreenuploadbutton;
-    private ImageButton heartscreenlistenbutton;
-    private ImageButton heartscreenresetbutton;
-    private ImageButton heartscreensubmitbutton;
+
+    private Button heartscreenuploadbutton;
+    private Button heartscreenlistenbutton;
+    private Button heartscreenresetbutton;
+    private Button heartscreensubmitbutton;
+    private ImageButton heartscreenbackbutton;
+
     private boolean isRecording = false;
     private static final int REQUEST_PICK_AUDIO = 2002; // The request code
     private Uri audioUri;
-    private ImageView gifImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.heartscreen);
-        gifImageView = findViewById(R.id.gif_image);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.heart_screen_background));
-        }
-
-        Glide.with(this)
-                .asGif()
-                .load(R.drawable.maingif) // Replace 'your_gif' with the GIF resource name
-                .apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE)) // Skip disk cache for the splash gif
-                .into(gifImageView);
-
+        heartscreenbackbutton = findViewById(R.id.heartscreenbackbutton);
         heartscreenlistenbutton = findViewById(R.id.heartscreenlistenbutton);
         heartscreensubmitbutton = findViewById(R.id.heartscreensubmitbutton);
         heartscreenrecordbutton = findViewById(R.id.heartscreemrecordbutton);
@@ -93,11 +84,48 @@ public class HeartScreen extends AppCompatActivity {
         fileName = getExternalFilesDir(Environment.DIRECTORY_MUSIC).getAbsolutePath();
         fileName += "/audiorecordtest.3gp";
         ActivityCompat.requestPermissions(this, permissions, REQUEST_RECORD_AUDIO_PERMISSION);
-        loadingIndicator = findViewById(R.id.loadingIndicator);
         resetRecording();
         heartscreenrecordbutton.setOnClickListener(v -> toggleRecording());
         heartscreenresetbutton.setOnClickListener(v -> resetRecording());
         heartscreenlistenbutton.setOnClickListener(v -> playRecording());
+
+
+        final ImageView imageViewLogoVision = findViewById(R.id.imageViewAnimatedGif);
+        Glide.with(this).asGif().load(R.drawable.heartbeat).into(imageViewLogoVision);
+
+
+        imageViewLogoVision.post(new Runnable() {
+            @Override
+            public void run() {
+                // Dimensions of the GIF ImageView
+                int originalWidth = imageViewLogoVision.getWidth();
+                int originalHeight = imageViewLogoVision.getHeight();
+
+                // Screen dimensions
+                DisplayMetrics displayMetrics = new DisplayMetrics();
+                getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+                int screenWidth = displayMetrics.widthPixels;
+                // Calculate scale factors
+                float xScale = (float) screenWidth / originalWidth;
+
+                // Maintain aspect ratio
+                float yScale = xScale;
+
+                // Create a scale animation that adjusts both X and Y axis to scale
+                ScaleAnimation scaleAnimation = new ScaleAnimation(
+                        1.0f, xScale,     // Start and end scale for X axis
+                        1.0f, yScale,     // Start and end scale for Y axis
+                        Animation.RELATIVE_TO_SELF, 0.5f, // Pivot point X
+                        Animation.RELATIVE_TO_SELF, 0.5f  // Pivot point Y
+                );
+                scaleAnimation.setFillAfter(true); // Optional: maintain the scale after the animation
+                scaleAnimation.setDuration(3000);  // Duration for the scaling animation
+
+                // Start the scale animation
+                imageViewLogoVision.startAnimation(scaleAnimation);
+            }
+        });
+
         heartscreenuploadbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -105,14 +133,19 @@ public class HeartScreen extends AppCompatActivity {
                 showAudioSourceDialog(); // For example, close the current activity
             }
         });
-
+        heartscreenbackbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle the back button click
+                finish(); // For example, close the current activity
+            }
+        });
         heartscreensubmitbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Handle the back button click
                 File recordingFile = new File(fileName);
                 if (recordingFile.exists()) {
-                    loadingIndicator.setVisibility(View.VISIBLE);
                     Log.d("HeartScreen", "Recording file exists: " + fileName);
                     sendHttpRequestToFunction(fileName);
                 } else {
@@ -151,15 +184,14 @@ public class HeartScreen extends AppCompatActivity {
             isRecording = false;
             // Update the UI to reflect that recording has stopped
             // For example, change the button text or color
-            heartscreenrecordbutton.setImageResource(R.drawable.heartrecordericon);
-
+            heartscreenrecordbutton.setText("Start Recording");
         } else {
             // Start recording
             startRecording();
             isRecording = true;
             // Update the UI to reflect that recording has started
             // For example, change the button text or color
-            heartscreenrecordbutton.setImageResource(R.drawable.heartstoprecordingicon);
+            heartscreenrecordbutton.setText("Stop Recording");
         }
     }
 
@@ -209,10 +241,6 @@ public class HeartScreen extends AppCompatActivity {
         if (recordingFile.exists()) {
             recordingFile.delete();
         }
-        heartscreenconfidencescore.setText("");
-        heartscreenresult.setText("");
-        heartscreenheartrate.setText("");
-        loadingIndicator.setVisibility(View.GONE);
     }
 //
     private void stopRecording() {
@@ -223,6 +251,16 @@ public class HeartScreen extends AppCompatActivity {
         // Check if the file exists
 
     }
+//    private void playRecording() {
+//        player = new MediaPlayer();
+//        try {
+//            player.setDataSource(fileName);
+//            player.prepare();
+//            player.start();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     private void playRecording() {
         if (player == null) {
@@ -370,23 +408,15 @@ public class HeartScreen extends AppCompatActivity {
                     String formattedheartrate = String.format("%.2f", heartrate);
 
                     // Update TextViews with the values
-                    if(result.equals("Artifact"))
-                    {
-                        heartscreenconfidencescore.setText("Confidence Score: " + formattedConfidence);
-                        heartscreenresult.setText("Result: " + result);
-                    }
-                    else
-                    {
-                        heartscreenconfidencescore.setText("Confidence Score: " + formattedConfidence);
-                        heartscreenresult.setText("Result: " + result);
-                        heartscreenheartrate.setText("Heart Rate : "+ formattedheartrate);
-                    }
+                    heartscreenconfidencescore.setText("Confidence Score: " + formattedConfidence);
+                    heartscreenresult.setText("Result: " + result);
+                    heartscreenheartrate.setText("Heart Rate : "+ formattedheartrate);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
-//                 Hide loading indicator (if needed)
-                loadingIndicator.setVisibility(View.GONE);
+                // Hide loading indicator (if needed)
+//                loadingIndicator.setVisibility(View.GONE);
             }
         });
     }
