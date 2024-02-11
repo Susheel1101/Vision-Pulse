@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="#c8ecea">
+
+    <TextView
+        android:id="@+id/heartscreenheadlinetext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Listen to your heart."
+        android:textSize="50sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginBottom="50dp"
+        android:fontFamily="@font/heartbeat"/>
+
+    <!-- Black background box that includes the animated GIF ImageView -->
+    <ImageView
+        android:id="@+id/gif_image"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_gravity="center"
+        android:layout_below="@+id/heartscreenheadlinetext"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:scaleType="centerCrop" />
+
+    <!-- Button panel -->
+    <LinearLayout
+        android:id="@+id/buttonPanel1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/gif_image"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="5dp"
+        android:gravity="center">
+
+        <ImageButton
+            android:id="@+id/heartscreemrecordbutton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/heartrecordericon"
+            android:background="?attr/selectableItemBackground"
+            android:scaleType="centerCrop"
+            android:layout_marginEnd="20dp"/>
+
+        <ImageButton
+            android:id="@+id/heartscreenuploadbutton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/heartuploadicon"
+            android:background="?attr/selectableItemBackground"
+            android:scaleType="centerCrop"
+            android:layout_marginEnd="20dp"/>
+
+        <ImageButton
+            android:id="@+id/heartscreenlistenbutton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/heartlistenicon"
+            android:background="?attr/selectableItemBackground"
+            android:scaleType="centerCrop"
+            android:layout_marginEnd="20dp"/>
+        <ImageButton
+            android:id="@+id/heartscreenresetbutton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/heartreseticon"
+            android:background="?attr/selectableItemBackground"
+            android:scaleType="centerCrop" />
+    </LinearLayout>
+
+    <!-- Submit button -->
+    <ImageButton
+        android:id="@+id/heartscreensubmitbutton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/cataractsubmiticon"
+        android:background="?attr/selectableItemBackground"
+        android:scaleType="centerCrop"
+        android:layout_below="@id/buttonPanel1"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"/>
+
+    <!-- Result Text View -->
+
+    <TextView
+        android:id="@+id/textViewResult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/result_placeholder"
+        android:gravity="center"
+        android:layout_below="@id/heartscreensubmitbutton"
+        android:layout_marginTop="16dp" />
+
+    <TextView
+        android:id="@+id/heartscreenheartrate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="25sp"
+        android:layout_below="@id/textViewResult"
+        android:layout_marginTop="16dp"
+        android:textColor="@color/white" />
+
+    <TextView
+        android:id="@+id/heartscreenconfidencescore"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="25sp"
+        android:textColor="@color/white"
+        android:layout_below="@id/heartscreenheartrate"
+        android:layout_marginTop="16dp" />
+    <TextView
+        android:id="@+id/heartscreenresult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="25sp"
+        android:textColor="@color/white"
+        android:layout_below="@id/heartscreenconfidencescore"
+        android:layout_marginTop="16dp" />
+
+    <ProgressBar
+        android:id="@+id/loadingIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewResult"
+        android:layout_marginTop="30dp"
+        android:layout_centerInParent="true"
+        android:layout_centerVertical="true"
+        android:visibility="invisible" />
+</RelativeLayout>
