@@ -1,5 +1,9 @@
 # Vision-Pulse
 
+<p align="left">
+  <img src="visionpulse.jpg" alt="App Logo" width="200"/>
+</p>
+
 ## Introduction
 
 Welcome to VisionPulse! We're on a mission to transform the detection and management of common but often neglected conditions such as heart murmurs and cataracts. With a focus on accessibility and simplicity, VisionPulse aims to revolutionize the way these issues are identified and addressed, particularly within the diverse landscapes of India.
