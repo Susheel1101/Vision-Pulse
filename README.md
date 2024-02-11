@@ -37,8 +37,9 @@ Thank you for showing interest in VisionPulse. We invite you to be part of a mov
 
 
 # Dataset Source:
-https://istethoscope.peterjbentley.com/heartchallenge/index.html
+Heartbeat dataset: https://istethoscope.peterjbentley.com/heartchallenge/index.html
 
+Cataract dataset: Collected from patients visiting Ramakrishna Mission, an NGO based in India
 
 ## Team
 
